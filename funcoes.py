@@ -9,4 +9,4 @@ def rolar_dados(n):
 def guardar_dado (rodados, guardados, indice):
     guardados.append(rodados[indice])
     del rodados[indice]
-    return rodados, guardados
+    return [rodados, guardados]
