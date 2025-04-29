@@ -5,3 +5,8 @@ def rolar_dados(n):
         numero = random.randint(1,6)
         lista.append(numero)
     return lista
+
+def guardar_dado (rodados, guardados, indice):
+    guardados.append(rodados[indice])
+    del rodados[indice]
+    return rodados, guardados
