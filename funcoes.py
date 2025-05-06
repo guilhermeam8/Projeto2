@@ -85,3 +85,13 @@ def calcula_pontos_quadra(faces):
                 soma += faces[p]
             return soma
     return 0
+def  calcula_pontos_quina(faces):
+    for i in range(len(faces)):
+        numero = faces[i]
+        contador = 0
+        for k in range(len(faces)):
+            if faces[k] == numero:
+                contador +=1
+        if contador == 5:
+            return 50
+    return 0
