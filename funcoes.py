@@ -51,3 +51,24 @@ def calcula_pontos_sequencia_alta(faces):
         if contador == 5:
             return 30
     return 0
+def calcula_pontos_full_house(faces):
+    for i in range(len(faces)):
+        valorrr = faces[i]
+        contadorrr = 0
+        for n in range(len(faces)):
+            if faces[n] == valorrr:
+                contadorrr +=1
+        if contadorrr == 3:
+            for m in range(len(faces)):
+                valorr = faces[m]
+                if valorr != valorrr:
+                    contadorr = 0
+                    for k in range(len(faces)):
+                        if faces[k] == valorr:
+                            contadorr +=1
+                    if contadorr == 2:
+                        soma = 0
+                        for j in range(len(faces)):
+                            soma+=faces[j]
+                        return soma
+    return 0
