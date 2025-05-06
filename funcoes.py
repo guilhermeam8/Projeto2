@@ -72,3 +72,16 @@ def calcula_pontos_full_house(faces):
                             soma+=faces[j]
                         return soma
     return 0
+def calcula_pontos_quadra(faces):
+    for i in range(len(faces)):
+        numero = faces[i]
+        contador = 0
+        for k in range(len(faces)):
+            if faces[k] == numero:
+                contador+=1
+        if contador >= 4:
+            soma = 0
+            for p in range(len(faces)):
+                soma += faces[p]
+            return soma
+    return 0
