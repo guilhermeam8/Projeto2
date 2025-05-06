@@ -18,14 +18,16 @@ def remover_dado(drolados,destoques,dremover):
 
 def calcula_pontos_regra_simples(dados):
     contagem = {1:0,2:0,3:0,4:0,5:0,6:0}
-
     for face in dados:
-        if 1 <= face <= 6:
-            contagem[face] += 1  
+        if 1<=face<= 6:
+            contagem[face]+=1  
     resultado = {}
-
-    for face in range(1, 7):
-        pontos = face * contagem[face]
+    for face in range(1,7):
+        pontos = face*contagem[face]
         resultado[face] = pontos
-       
     return resultado
+def calcula_pontos_soma (lista):
+    resposta = 0
+    for numeros in lista:
+        resposta += numeros
+    return resposta
