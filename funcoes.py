@@ -41,3 +41,13 @@ def calcula_pontos_sequencia_baixa(faces):
         if contador == 4:
             return 15
     return 0
+def calcula_pontos_sequencia_alta(faces):
+    sequencias = [[1,2,3,4,5],[2,3,4,5,6]]
+    for sequencia in sequencias:
+        contador = 0
+        for numero in sequencia:
+            if numero in faces:
+                contador+=1
+        if contador == 5:
+            return 30
+    return 0
