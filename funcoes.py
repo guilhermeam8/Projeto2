@@ -105,3 +105,12 @@ def calcula_pontos_regra_avancada (faces):
         'sequencia_alta': calcula_pontos_sequencia_alta(faces),
         'sequencia_baixa': calcula_pontos_sequencia_baixa(faces)
     }
+def faz_jogada(dados, tipo, tabela):
+    if tipo in ['1', '2', '3', '4', '5', '6']: 
+        i = int(tipo)
+        pts = calcula_pontos_regra_simples(dados)[i]
+        tabela['regra_simples'][i] = pts 
+    elif tipo in tabela['regra_avancada']:
+        pts = calcula_pontos_regra_avancada(dados)[tipo]
+        tabela['regra_avancada'][tipo] = pts 
+    return tabela
