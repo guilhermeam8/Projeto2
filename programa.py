@@ -1,79 +1,83 @@
 import funcoes as f
 
-cart = {
-    'regra_simples': {n: -1 for n in range(1, 7)},
-    'regra_avancada': {k: -1 for k in ['sem_combinacao', 'quadra', 'full_house', 'sequencia_baixa', 'sequencia_alta', 'cinco_iguais']}
-}
-
-f.imprime_cartela(cart)
-rod = 0
-
-while rod < 12 and (-1 in cart['regra_simples'].values() or -1 in cart['regra_avancada'].values()):
-    rol = f.rolar_dados(5)
-    guard = []
-    rer = 0
-    rod += 1
-    seguir = True
-    erro = ''
-
-    while seguir:
-        if not erro:
-            print(f"Dados rolados: {rol}")
-            print(f"Dados guardados: {guard}")
+cartela = {'regra_simples': {i: -1 for i in range(1, 7)}, 'regra_avancada': {k: -1 for k in ['sem_combinacao', 'quadra', 'full_house', 'sequencia_baixa', 'sequencia_alta', 'cinco_iguais']}}
+f.imprime_cartela(cartela)
+r = 0  
+while (-1 in cartela['regra_simples'].values() or -1 in cartela['regra_avancada'].values()) and r != 12:
+    dr = f.rolar_dados(5)  
+    dg = []  
+    rr = 0  
+    ra = True  
+    r += 1
+    inv = False  
+    
+    while ra:
+        if not inv:
+            print(f"Dados rolados: {dr}")
+            print(f"Dados guardados: {dg}")
             print("Digite 1 para guardar um dado, 2 para remover um dado, 3 para rerrolar, 4 para ver a cartela ou 0 para marcar a pontuação:")
-        op = input()
-        erro = ''
+
+        op = input()  
+        inv = False
 
         if op == '1':
-            print("Digite o índice do dado a ser guardado (0 a 4):")
-            i = int(input())
-            rol, guard = f.guardar_dado(rol, guard, i)
+            print(f"Digite o índice do dado a ser guardado (0 a 4):")
+            idx = int(input())
+            dr, dg = f.guardar_dado(dr, dg, idx)
 
         elif op == '2':
-            print("Digite o índice do dado a ser removido (0 a 4):")
-            i = int(input())
-            rol, guard = f.remover_dado(rol, guard, i)
+            print(f"Digite o índice do dado a ser removido (0 a 4):")
+            idx = int(input())
+            dr, dg = f.remover_dado(dr, dg, idx)
 
         elif op == '3':
-            if rer < 2:
-                rol = f.rolar_dados(len(rol))
-                rer += 1
+            if rr < 2:
+                dr = f.rolar_dados(len(dr))
+                rr += 1
             else:
                 print("Você já usou todas as rerrolagens.")
+
         elif op == '4':
-            f.imprime_cartela(cart)
+            f.imprime_cartela(cartela)
 
         elif op == '0':
             print("Digite a combinação desejada:")
-            cat = input()
+            while True:
+                resp = input()  
+                if resp.isdigit():
+                    resp_int = int(resp)
+                else:
+                    resp_int = None
+                while resp_int not in cartela['regra_simples'] and resp not in cartela['regra_avancada']:
+                    print("Combinação inválida. Tente novamente.")
+                    resp = input() 
+                    if resp.isdigit():
+                        resp_int = int(resp)
+                    else:
+                        resp_int = None
+                if resp_int in cartela['regra_simples']:
+                    if cartela['regra_simples'][resp_int] == -1:
+                        f.faz_jogada(dr + dg, resp, cartela)
+                        break
+                    else:
+                        print("Essa combinação já foi utilizada.")
+                elif resp in cartela['regra_avancada']:
+                    if cartela['regra_avancada'][resp] == -1:
+                        f.faz_jogada(dr + dg, resp, cartela)
+                        break
+                    else:
+                        print("Essa combinação já foi utilizada.")
+            break 
 
-            if cat.isdigit():
-                catn = int(cat)
-                if catn in cart['regra_simples'] and cart['regra_simples'][catn] == -1:
-                    f.faz_jogada(rol + guard, cat, cart)
-                    seguir = False
-                else:
-                    erro = 'X'
-                    print("Inválido ou já usado.")
-            elif cat in cart['regra_avancada']:
-                if cart['regra_avancada'][cat] == -1:
-                    f.faz_jogada(rol + guard, cat, cart)
-                    seguir = False
-                else:
-                    erro = 'X'
-                    print("Já usado.")
-            else:
-                erro = 'X'
-                print("Categoria inválida.")
         else:
-            erro = 'X'
-            print("Opção inválida.")
+            print("Opção inválida. Tente novamente.")
+            inv = True  
 
-pts_sim = sum(cart['regra_simples'].values())
-pts_av = sum(cart['regra_avancada'].values())
-bonus = 35 if pts_sim >= 63 else 0
-total = pts_sim + pts_av + bonus
+ts = sum(cartela['regra_simples'].values())  
+ta = sum(cartela['regra_avancada'].values())  
+total = ts + ta + (35 if ts >= 63 else 0)
 
-f.imprime_cartela(cart)
+f.imprime_cartela(cartela)
 print(f"Pontuação total: {total}")
+
 
